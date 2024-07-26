@@ -76,6 +76,8 @@ public class TileSelectUiManager : MonoBehaviour
         };
     }
 
+    public void UpdateTileUI(Tile _tile) => InitializeTileUI(_tile, initialPosition);
+
     public void SetTileUiActive(bool _isActive) => tileUiObject.SetActive(_isActive);
 
     private bool IsPointerOverTileUI()

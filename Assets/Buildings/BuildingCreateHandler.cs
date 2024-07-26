@@ -21,12 +21,13 @@ public class BuildingCreateHandler : MonoBehaviour
                 return;
             }
 
-            if (!_tile.TrySetBuilding(_building))
+            if (!_tile.TryBuildBuilding(_building))
                 Debug.LogError($"Tile ${_tile.GetData().Name} cannot have building ${_building.Name}");
 
             playerInventory.ResourceInventory.Remove(_building.RequiredResources);
             buildingsManager.UpdateTileBuilding(_tile, _building);
 
+            tileSelectUi.UpdateTileUI(_tile);
             tileSelectUi.SetTileUiActive(!turnTileUiOffOnBuild);
         };
     }

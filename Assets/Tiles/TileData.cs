@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections.Generic;
 
-[CreateAssetMenu(fileName = "New Tile Data", menuName = "Scriptable Objects/Tile")]
+[CreateAssetMenu(fileName = "New Tile Data", menuName = "Scriptable Objects/Tiles/Tile")]
 public class TileData : ScriptableObject
 {
     public string Name => tileName;
@@ -13,6 +13,15 @@ public class TileData : ScriptableObject
     [SerializeField] private List<BuildingTile> possibleBuildings;
 
     private Dictionary<Building, TileData> possibleBuildingsDict = null;
+
+    public void CopyTileData(TileData _target)
+    {
+        Debug.LogWarning("Copying TileData.");
+
+        tileName = _target.Name;
+        tileSprite = _target.Sprite;
+        possibleBuildings = _target.PossibleBuildings;
+    }
 
     public bool IsBuildingPossible(Building _building)
     {

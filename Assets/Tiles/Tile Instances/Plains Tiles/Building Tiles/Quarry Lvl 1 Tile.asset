@@ -9,8 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2c45b80f483230d408f3766d416043b0, type: 3}
-  m_Name: Stone
+  m_Script: {fileID: 11500000, guid: 6b6c1d1a2597d5a4ea12f58452fe3652, type: 3}
+  m_Name: Quarry Lvl 1 Tile
   m_EditorClassIdentifier: 
-  resourceName: Stone
-  sprite: {fileID: 21300000, guid: cd8466a53c4be8949822b51abbcea293, type: 3}
+  tileName: Quarry
+  tileSprite: {fileID: 21300000, guid: ae229d87059ae8348a025cb331e2db61, type: 3}
+  possibleBuildings: []

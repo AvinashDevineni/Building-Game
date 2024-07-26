@@ -213,7 +213,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tileParent: {fileID: 1939190825}
   possibleTiles:
-  - {fileID: 11400000, guid: bb278907e2668d24aa3929a8acf1fa6e, type: 2}
+  - {fileID: 11400000, guid: da77b2560a5455c41825a153e86cfbe6, type: 2}
+  - {fileID: 11400000, guid: 687c941573580ef4e897a878411e885d, type: 2}
   tilePrefab: {fileID: 2074517276456350775, guid: 6bd85453d0be212409e7f9ee00b01f99, type: 3}
   tileSize: 1
   gridSize: 5

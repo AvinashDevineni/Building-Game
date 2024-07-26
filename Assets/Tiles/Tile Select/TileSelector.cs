@@ -54,8 +54,6 @@ public class TileSelector : MonoBehaviour
             // then mouse must be up
             else
             {
-                print(secsSpentHolding);
-                
                 if (secsSpentHolding > minSecsToBeDrag)
                 {
                     secsSpentHolding = 0f;

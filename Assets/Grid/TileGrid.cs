@@ -5,7 +5,7 @@ public class TileGrid : MonoBehaviour
 {
     [Header("Tiles")]
     [SerializeField] private Transform tileParent;
-    [SerializeField] private List<TileData> possibleTiles;
+    [SerializeField] private List<TileGroup> possibleTiles;
     [SerializeField] private Tile tilePrefab;
     [Space(15)]
 
@@ -21,13 +21,17 @@ public class TileGrid : MonoBehaviour
         if (_size % 2 != 1)
             Debug.LogError("Size must be an odd number.");
 
-        int _gridExtent = (_size - 1) / 2; 
+        int _gridExtent = (_size - 1) / 2;
+        int _numPossibleTiles = possibleTiles.Count;
         for (int x = -_gridExtent; x <= _gridExtent; x++)
         {
             for (int y = -_gridExtent; y <= _gridExtent; y++)
             {
+                TileGroup _chosenGroup = possibleTiles[Random.Range(0, _numPossibleTiles)];
+                TileData _chosenData = _chosenGroup.TileVariations[Random.Range(0, _chosenGroup.TileVariations.Count)];
+
                 Tile _tile = Instantiate(tilePrefab, tileParent);
-                _tile.Initialize(possibleTiles[Random.Range(0, possibleTiles.Count)]);
+                _tile.Initialize(_chosenData);
                 _tile.transform.position = new Vector2(x * tileSize, y * tileSize);
                 _tile.transform.localScale = new Vector2(tileSize, tileSize);
 
