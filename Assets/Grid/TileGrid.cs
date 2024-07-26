@@ -29,6 +29,7 @@ public class TileGrid : MonoBehaviour
                 Tile _tile = Instantiate(tilePrefab, tileParent);
                 _tile.Initialize(possibleTiles[Random.Range(0, possibleTiles.Count)]);
                 _tile.transform.position = new Vector2(x * tileSize, y * tileSize);
+                _tile.transform.localScale = new Vector2(tileSize, tileSize);
 
                 tilesAtLocalPositions[new Vector2Int(x, y)] = _tile;
             }

@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3293ac6b828399948ad3f263fefa5b86, type: 3}
-  m_Name: Lumbermill Building
+  m_Name: Lumbermill Lvl 1 Building
   m_EditorClassIdentifier: 
   resourceName: Lumbermill
   sprite: {fileID: 21300000, guid: 2ae4599e8f6f7b44ba39a731bef9e423, type: 3}
@@ -21,3 +21,4 @@ MonoBehaviour:
   - resource: {fileID: 11400000, guid: b5215998ed6f30e469412d67b9725bec, type: 2}
     count: 1
   level: 1
+  nextLevelBuilding: {fileID: 11400000, guid: 41883446406e22b4384ed58c38c5a324, type: 2}

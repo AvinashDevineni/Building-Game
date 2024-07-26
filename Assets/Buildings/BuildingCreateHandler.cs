@@ -3,7 +3,7 @@ using UnityEngine;
 public class BuildingCreateHandler : MonoBehaviour
 {
     [Header("Dependencies")]
-    [SerializeField] private TileSelector tileSelect;
+    [SerializeField] private TileSelectUiManager tileSelectUi;
     [SerializeField] private PlayerInventory playerInventory;
     [SerializeField] private BuildingsManager buildingsManager;
     [Space(15)]
@@ -13,7 +13,7 @@ public class BuildingCreateHandler : MonoBehaviour
 
     private void Start()
     {
-        tileSelect.OnBuildingCreate += (_tile, _building) =>
+        tileSelectUi.OnBuildingCreate += (_tile, _building) =>
         {
             if (!playerInventory.ResourceInventory.AreResourcesInInventory(_building.RequiredResources))
             {
@@ -27,7 +27,7 @@ public class BuildingCreateHandler : MonoBehaviour
             playerInventory.ResourceInventory.Remove(_building.RequiredResources);
             buildingsManager.UpdateTileBuilding(_tile, _building);
 
-            tileSelect.SetTileUiActive(!turnTileUiOffOnBuild);
+            tileSelectUi.SetTileUiActive(!turnTileUiOffOnBuild);
         };
     }
 }
