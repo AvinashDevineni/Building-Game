@@ -6,10 +6,18 @@ public class TileData : ScriptableObject
 {
     public string Name => tileName;
     public Sprite Sprite => tileSprite;
+    public bool IsBuilding => isBuilding;
+    public int MaxPersonCapacity => maxPersonCapacity;
     public List<BuildingTile> PossibleBuildings => possibleBuildings;
 
+    [Header("Tile Settings")]
     [SerializeField] private string tileName;
     [SerializeField] private Sprite tileSprite;
+    [Space(15)]
+
+    [Header("Building Settings")]
+    [SerializeField] private bool isBuilding;
+    [SerializeField] [Min(0)] private int maxPersonCapacity;
     [SerializeField] private List<BuildingTile> possibleBuildings;
 
     private Dictionary<Building, TileData> possibleBuildingsDict = null;

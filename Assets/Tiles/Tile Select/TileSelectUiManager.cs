@@ -6,9 +6,13 @@ using System.Collections.Generic;
 public class TileSelectUiManager : MonoBehaviour
 {
     public event Action<Tile, Building> OnBuildingCreate;
+    public event Action<Tile, BuildingUI> OnDecreaseWorkers;
+    public event Action<Tile, BuildingUI> OnIncreaseWorkers;
 
     [Header("Dependencies")]
     [SerializeField] private TileSelector tileSelector;
+    [SerializeField] private BuildingsManager buildingsManager;
+    [SerializeField] private WorkersManager workersManager;
     [SerializeField] private Camera cam;
     [SerializeField] private CameraZoom camZoom;
     [Space(15)]
@@ -17,6 +21,8 @@ public class TileSelectUiManager : MonoBehaviour
     [SerializeField] private Canvas canvas;
     [SerializeField] private TileUI tileUiPrefab;
     [SerializeField] private Vector2 tileUiOffset;
+
+    private Tile curTile;
 
     private TileUI tileUi;
     private GameObject tileUiObject;
@@ -28,9 +34,12 @@ public class TileSelectUiManager : MonoBehaviour
     {
         TileUI _ui = Instantiate(tileUiPrefab, canvas.GetComponent<RectTransform>());
         tileUi = _ui;
-        tileUi.OnBuildingCreate += (_tile, _building) => OnBuildingCreate?.Invoke(_tile, _building);
         tileUiObject = _ui.gameObject;
         tileUiTrans = _ui.GetComponent<RectTransform>();
+
+        tileUi.OnBuildingCreate += _building => OnBuildingCreate?.Invoke(curTile, _building);
+        tileUi.OnDecreaseWorkersClicked += _buildingUi => OnDecreaseWorkers?.Invoke(curTile, _buildingUi);
+        tileUi.OnIncreaseWorkersClicked += _buildingUi => OnIncreaseWorkers?.Invoke(curTile, _buildingUi);
 
         tileUiObject.SetActive(false);
     }
@@ -98,8 +107,13 @@ public class TileSelectUiManager : MonoBehaviour
 
     private void InitializeTileUI(Tile _tile, Vector2 _middleLeftPos)
     {
+        curTile = _tile;
+
         SetMiddleLeftToPosition(_middleLeftPos);
-        tileUi.SetTile(_tile);
+
+        if (buildingsManager.TryGetBuildingOnTile(_tile, out Building _building))
+            tileUi.SetTile(_tile, _building, workersManager.GetNumWorkersInTile(_tile));
+        else tileUi.SetTile(_tile);
 
         tileUiObject.SetActive(true);
     }

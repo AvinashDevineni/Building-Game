@@ -14,4 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tileName: Quarry
   tileSprite: {fileID: 21300000, guid: ae229d87059ae8348a025cb331e2db61, type: 3}
-  possibleBuildings: []
+  isBuilding: 1
+  maxPersonCapacity: 2
+  possibleBuildings:
+  - <Building>k__BackingField: {fileID: 11400000, guid: be3810cf91d8757438a68894dbded128, type: 2}
+    <ResultingTile>k__BackingField: {fileID: 11400000, guid: 0112f2a8ac9281240b1221aad6bb1c59, type: 2}

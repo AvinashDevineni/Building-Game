@@ -14,4 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tileName: Lumbermill
   tileSprite: {fileID: 21300000, guid: ab277e13c3e3d3a4fb2981d961f904c4, type: 3}
+  isBuilding: 1
+  maxPersonCapacity: 3
   possibleBuildings: []

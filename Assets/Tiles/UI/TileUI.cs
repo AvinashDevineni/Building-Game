@@ -6,7 +6,9 @@ using System.Collections.Generic;
 
 public class TileUI : MonoBehaviour
 {
-    public event Action<Tile, Building> OnBuildingCreate;
+    public event Action<Building> OnBuildingCreate;
+    public event Action<BuildingUI> OnDecreaseWorkersClicked;
+    public event Action<BuildingUI> OnIncreaseWorkersClicked;
 
     public Vector2 BottomLeft => bottomLeft.position;
     public Vector2 MiddleLeft => middleLeft.position;
@@ -19,26 +21,33 @@ public class TileUI : MonoBehaviour
     [SerializeField] private Transform bottomLeft;
     [SerializeField] private Transform middleLeft;
 
-    private List<BuildingUI> buildingUIs = new();
-
-    public void SetTile(Tile _tile)
+    #nullable enable
+    public void SetTile(Tile _tile, Building? _currentBuilding = null, int _numWorkers = -1)
+    #nullable disable
     {
-        foreach (BuildingUI _buildingUI in buildingUIs)
-            Destroy(_buildingUI.gameObject);
-
-        buildingUIs = new();
+        buildingList.DestroyBuildingUIs();
 
         tileNameText.text = _tile.GetData().Name;
+        
+        if (_currentBuilding != null)
+        {
+            if (_numWorkers < 0)
+                Debug.LogError("If currentBuilding is set, numWorkers must be a positive number.");
+
+            BuildingUI _ui = buildingList.AddCurrentBuilding(_currentBuilding, _numWorkers);
+            _ui.OnDecreaseWorkersClicked += () => OnDecreaseWorkersClicked?.Invoke(_ui);
+            _ui.OnIncreaseWorkersClicked += () => OnIncreaseWorkersClicked?.Invoke(_ui);
+        }
+
         foreach (Building _building in _tile.GetData().PossibleBuildings.Select(_buildingTile => _buildingTile.Building))
         {
-            BuildingUI _buildingUI = buildingList.AddBuilding(_building);
-            buildingUIs.Add(_buildingUI);
-            _buildingUI.OnBuildingCreate += _building =>
+            BuildingUI _ui = buildingList.AddBuilding(_building);
+            _ui.OnBuildingCreate += _building =>
             {
                 if (_tile == null)
                     return;
 
-                OnBuildingCreate?.Invoke(_tile, _building);
+                OnBuildingCreate?.Invoke(_building);
             };
         }
     }

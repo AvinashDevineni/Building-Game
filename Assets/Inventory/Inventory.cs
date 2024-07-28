@@ -1,8 +1,8 @@
 using System.Collections.Generic;
 
-public class Inventory<T> where T : Resource
+public class Inventory
 {
-    private Dictionary<T, int> inventory;
+    private Dictionary<Resource, int> inventory;
 
     public Inventory() => inventory = new();
 
@@ -11,10 +11,10 @@ public class Inventory<T> where T : Resource
         inventory = new();
 
         foreach (ResourceCount _resourceCount in _initialInventory)
-            Add((T)_resourceCount.Resource, _resourceCount.Count);
+            Add(_resourceCount.Resource, _resourceCount.Count);
     }
 
-    public bool TryGetResource(T _resource, out int _count)
+    public bool TryGetResource(Resource _resource, out int _count)
     {
         if (inventory.TryGetValue(_resource, out _count))
             return true;
@@ -22,7 +22,7 @@ public class Inventory<T> where T : Resource
         return false;
     }
 
-    public bool Add(T _resource, int _count)
+    public bool Add(Resource _resource, int _count)
     {
         int _newAmount = _count;
         bool _wasPresent = false;
@@ -37,17 +37,17 @@ public class Inventory<T> where T : Resource
         return _wasPresent;
     }
 
-    public bool Add(T _resource) => Add(_resource, 1);
+    public bool Add(Resource _resource) => Add(_resource, 1);
 
     public void Add(List<ResourceCount> _resources)
     {
         foreach (ResourceCount _resourceCount in _resources)
-            Add((T)_resourceCount.Resource, _resourceCount.Count);
+            Add(_resourceCount.Resource, _resourceCount.Count);
     }
 
-    public void Add(Inventory<T> _inventory) => Add(_inventory.GetInventoryItems());
+    public void Add(Inventory _inventory) => Add(_inventory.GetInventoryItems());
 
-    public bool Remove(T _resource, int _count)
+    public bool Remove(Resource _resource, int _count)
     {
         if (inventory.TryGetValue(_resource, out int _existingAmount))
         {
@@ -61,21 +61,21 @@ public class Inventory<T> where T : Resource
         else return false;
     }
 
-    public bool Remove(T _resource) => Remove(_resource, 1);
+    public bool Remove(Resource _resource) => Remove(_resource, 1);
 
     public void Remove(List<ResourceCount> _resources)
     {
         foreach (ResourceCount _resourceCount in _resources)
-            Remove((T)_resourceCount.Resource, _resourceCount.Count);
+            Remove(_resourceCount.Resource, _resourceCount.Count);
     }
 
-    public void Remove(Inventory<T> _inventory) => Remove(_inventory.GetInventoryItems());
+    public void Remove(Inventory _inventory) => Remove(_inventory.GetInventoryItems());
 
     public bool AreResourcesInInventory(List<ResourceCount> _resources)
     {
         foreach (ResourceCount _resourceCount in _resources)
         {
-            T _castedResource = (T)_resourceCount.Resource;
+            Resource _castedResource = _resourceCount.Resource;
             if (!inventory.ContainsKey(_castedResource))
                 return false;
 
@@ -86,12 +86,12 @@ public class Inventory<T> where T : Resource
         return true;
     }
 
-    public bool AreResourcesInInventory(Inventory<T> _inventory) => AreResourcesInInventory(_inventory.GetInventoryItems());
+    public bool AreResourcesInInventory(Inventory _inventory) => AreResourcesInInventory(_inventory.GetInventoryItems());
 
     public List<ResourceCount> GetInventoryItems()
     {
         List<ResourceCount> _counts = new();
-        foreach (KeyValuePair<T, int> _itemAmount in inventory)
+        foreach (KeyValuePair<Resource, int> _itemAmount in inventory)
             _counts.Add(new ResourceCount(_itemAmount.Key, _itemAmount.Value));
 
         return _counts;

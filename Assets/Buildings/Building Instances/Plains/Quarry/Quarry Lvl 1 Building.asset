@@ -12,12 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3293ac6b828399948ad3f263fefa5b86, type: 3}
   m_Name: Quarry Lvl 1 Building
   m_EditorClassIdentifier: 
-  resourceName: Quarry
+  buildingName: Quarry
   sprite: {fileID: 21300000, guid: ae229d87059ae8348a025cb331e2db61, type: 3}
   requiredResources:
   - resource: {fileID: 11400000, guid: b5215998ed6f30e469412d67b9725bec, type: 2}
     count: 3
-  resourcesGained:
+  resourcesGainedPerWorker:
   - resource: {fileID: 11400000, guid: cbdbbb3f31239334fa71ca56abc02cd5, type: 2}
     count: 1
+  maxNumberOfWorkers: 2
   level: 1

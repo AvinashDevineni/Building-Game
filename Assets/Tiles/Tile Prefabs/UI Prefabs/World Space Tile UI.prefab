@@ -70,7 +70,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
   m_AnchoredPosition: {x: 0, y: -0.18487549}
-  m_SizeDelta: {x: 4.4066834, y: 1.2520616}
+  m_SizeDelta: {x: 5.0379, y: 1.2521}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!222 &4420504581880756993
 CanvasRenderer:
@@ -127,12 +127,12 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 0.95
-  m_fontSizeBase: 0.95
+  m_fontSize: 0.9
+  m_fontSizeBase: 0.85
   m_fontWeight: 400
-  m_enableAutoSizing: 0
-  m_fontSizeMin: 0
-  m_fontSizeMax: 72
+  m_enableAutoSizing: 1
+  m_fontSizeMin: 0.8
+  m_fontSizeMax: 0.9
   m_fontStyle: 0
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
@@ -375,5 +375,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b2a99b24d2d311c47984c51c1527c443, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  buildingUiPrefab: {fileID: 6368750840712730444, guid: bac33939be0194c45984d6dad93ffa10, type: 3}
   uiParent: {fileID: 8801887856574082334}
+  unbuiltBuildingUiPrefab: {fileID: 6368750840712730444, guid: bac33939be0194c45984d6dad93ffa10, type: 3}
+  builtBuildingUiPrefab: {fileID: 6368750840712730444, guid: 7693a95479eb64a4a98614cb6d375cd4, type: 3}

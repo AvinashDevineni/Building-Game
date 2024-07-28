@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 public class PlayerInventory : MonoBehaviour
 {
-    public Inventory<Resource> ResourceInventory { get; private set; }
+    public Inventory ResourceInventory { get; private set; }
 
     [Header("Initial Inventory")]
     [SerializeField] private List<ResourceCount> initialResourceInventory;
