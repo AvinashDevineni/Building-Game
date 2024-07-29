@@ -1406,8 +1406,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cam: {fileID: 519420031}
   deltaCamSizePerFrame: 0.2
-  minCamSize: 2.5
-  maxCamSize: 7
+  minCamSize: 2
+  maxCamSize: 5
 --- !u!114 &2126388620
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -15,3 +15,4 @@ MonoBehaviour:
   tileVariations:
   - {fileID: 11400000, guid: 889b5dc2017e26d49b631672f61d06c0, type: 2}
   - {fileID: 11400000, guid: 3f7d80e5d3f262041a29eb0ad3c00cd4, type: 2}
+  - {fileID: 11400000, guid: 42d11c2d09dea6b48ab528d25a231b69, type: 2}
