@@ -7,14 +7,22 @@ public class DayEndHandler : MonoBehaviour
     [Space(15)]
 
     [Header("Resource Production")]
-    [SerializeField] private BuildingsManager buildingsManager;
+    [SerializeField] private WorkBuildingsManager buildingsManager;
     [SerializeField] private PlayerInventory playerInventory;
+    [Space(15)]
+
+    [Header("Occupants Creation")]
+    [SerializeField] private HousesManager housesManager;
+    [SerializeField] private HouseOccupantsManager houseOccupantsManager;
 
     private void Start()
     {
         daytimeManager.OnDayEnd += () =>
         {
-            playerInventory.ResourceInventory.Add(buildingsManager.CalculateTotalBuildingProduction());
+            playerInventory.ResourceInventory.Add(buildingsManager.CalculateTotalWorkBuildingProduction());
+
+            foreach (Tile _tileWithHouse in housesManager.GetAllTilesWithHouses())
+                houseOccupantsManager.TryFillHouse(_tileWithHouse, out int _);
         };
     }
 }

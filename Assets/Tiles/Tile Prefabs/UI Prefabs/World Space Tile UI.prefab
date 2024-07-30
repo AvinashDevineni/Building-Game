@@ -376,5 +376,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   uiParent: {fileID: 8801887856574082334}
-  unbuiltBuildingUiPrefab: {fileID: 6368750840712730444, guid: bac33939be0194c45984d6dad93ffa10, type: 3}
-  builtBuildingUiPrefab: {fileID: 6368750840712730444, guid: 7693a95479eb64a4a98614cb6d375cd4, type: 3}
+  unbuiltWorkBuildingUiPrefab: {fileID: 2917737357415602071, guid: bac33939be0194c45984d6dad93ffa10, type: 3}
+  builtWorkBuildingUiPrefab: {fileID: 3884278942893340506, guid: 7693a95479eb64a4a98614cb6d375cd4, type: 3}
+  unbuiltHouseUiPrefab: {fileID: 914104711108860118, guid: 3169fbe57fbf7364ca6a0ab55ecccbf4, type: 3}
+  builtHouseUiPrefab: {fileID: 3160942501331166752, guid: 368ab990cca6c5d48b1d6c2b594c6b66, type: 3}

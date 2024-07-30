@@ -19,12 +19,31 @@ public class Tile : MonoBehaviour
 
     public TileData GetData() => tileData;
 
-    public bool TryBuildBuilding(Building _building)
+    public bool TryBuildWorkBuilding(WorkBuilding _building)
     {
-        if (tileData.IsBuildingPossible(_building))
+        if (tileData.IsWorkBuildingPossible(_building))
         {
-            tileData.TryGetBuildingResultingTile(_building, out TileData _newTileData);
-            Initialize(_newTileData);
+            tileData.TryGetWorkBuildingResultingTileInfo(_building, out TileData.WorkBuildingTile _newTileData);
+
+            if (_newTileData.HasVariations)
+                Initialize(_newTileData.ResultingVariations.GetRandomTileBasedOnFrequencies());
+            else Initialize(_newTileData.ResultingTileData);
+
+            return true;
+        }
+
+        return false;
+    }
+
+    public bool TryBuildBuilding(House _building)
+    {
+        if (tileData.IsHousePossible(_building))
+        {
+            tileData.TryGetHouseResultingTileInfo(_building, out TileData.HouseTile _newTileData);
+
+            if (_newTileData.HasVariations)
+                Initialize(_newTileData.ResultingVariations.GetRandomTileBasedOnFrequencies());
+            else Initialize(_newTileData.ResultingTileData);
 
             return true;
         }

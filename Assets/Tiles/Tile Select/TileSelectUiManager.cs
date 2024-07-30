@@ -5,14 +5,17 @@ using System.Collections.Generic;
 
 public class TileSelectUiManager : MonoBehaviour
 {
-    public event Action<Tile, Building> OnBuildingCreate;
-    public event Action<Tile, BuildingUI> OnDecreaseWorkers;
-    public event Action<Tile, BuildingUI> OnIncreaseWorkers;
+    public event Action<Tile, WorkBuilding> OnWorkBuildingCreate;
+    public event Action<Tile, House> OnHouseCreate;
+    public event Action<Tile, WorkBuildingUI> OnDecreaseWorkers;
+    public event Action<Tile, WorkBuildingUI> OnIncreaseWorkers;
 
     [Header("Dependencies")]
     [SerializeField] private TileSelector tileSelector;
-    [SerializeField] private BuildingsManager buildingsManager;
+    [SerializeField] private WorkBuildingsManager workBuildingsManager;
     [SerializeField] private WorkersManager workersManager;
+    [SerializeField] private HousesManager housesManager;
+    [SerializeField] private HouseOccupantsManager houseOccupantsManager;
     [SerializeField] private Camera cam;
     [SerializeField] private CameraZoom camZoom;
     [Space(15)]
@@ -20,6 +23,9 @@ public class TileSelectUiManager : MonoBehaviour
     [Header("Tile UI")]
     [SerializeField] private Canvas canvas;
     [SerializeField] private TileUI tileUiPrefab;
+
+    [Header("Settings")]
+    [SerializeField] private bool areHousesFirstInBuildingsList = true; 
     [SerializeField] private Vector2 tileUiOffset;
 
     private Tile curTile;
@@ -37,7 +43,8 @@ public class TileSelectUiManager : MonoBehaviour
         tileUiObject = _ui.gameObject;
         tileUiTrans = _ui.GetComponent<RectTransform>();
 
-        tileUi.OnBuildingCreate += _building => OnBuildingCreate?.Invoke(curTile, _building);
+        tileUi.OnWorkBuildingCreate += _building => OnWorkBuildingCreate?.Invoke(curTile, _building);
+        tileUi.OnHouseCreate += _house => OnHouseCreate?.Invoke(curTile, _house);
         tileUi.OnDecreaseWorkersClicked += _buildingUi => OnDecreaseWorkers?.Invoke(curTile, _buildingUi);
         tileUi.OnIncreaseWorkersClicked += _buildingUi => OnIncreaseWorkers?.Invoke(curTile, _buildingUi);
 
@@ -66,9 +73,9 @@ public class TileSelectUiManager : MonoBehaviour
 
                 case TileSelector.ClickFailReason.SAME_TILE:
                     if (!tileUiObject.activeInHierarchy)
-                        SetMiddleLeftToPosition(cam.ScreenToWorldPoint(Input.mousePosition));
+                        InitializeTileUI(curTile, cam.ScreenToWorldPoint(Input.mousePosition));
+                    else tileUiObject.SetActive(!tileUiObject.activeInHierarchy);
 
-                    tileUiObject.SetActive(!tileUiObject.activeInHierarchy);
                     break;
 
                 default:
@@ -111,9 +118,15 @@ public class TileSelectUiManager : MonoBehaviour
 
         SetMiddleLeftToPosition(_middleLeftPos);
 
-        if (buildingsManager.TryGetBuildingOnTile(_tile, out Building _building))
-            tileUi.SetTile(_tile, _building, workersManager.GetNumWorkersInTile(_tile));
-        else tileUi.SetTile(_tile);
+        bool _doesWorkBuildingExist = workBuildingsManager.TryGetWorkBuildingOnTile(_tile, out WorkBuilding _workBuilding);
+        bool _doesHouseExist = housesManager.TryGetHouseOnTile(_tile, out House _house);
+
+        tileUi.SetTile
+        (
+            _tile, _workBuilding, _doesWorkBuildingExist ? workersManager.GetNumWorkersInTile(_tile) : -1,
+            _house, _doesHouseExist ? houseOccupantsManager.GetNumOccupantsInTile(_tile) : -1,
+            areHousesFirstInBuildingsList
+        );
 
         tileUiObject.SetActive(true);
     }

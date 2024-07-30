@@ -14,12 +14,12 @@ public class Inventory
             Add(_resourceCount.Resource, _resourceCount.Count);
     }
 
-    public bool TryGetResource(Resource _resource, out int _count)
+    public int GetResource(Resource _resource)
     {
-        if (inventory.TryGetValue(_resource, out _count))
-            return true;
+        if (!inventory.TryGetValue(_resource, out int _count))
+            return 0;
 
-        return false;
+        return _count;
     }
 
     public bool Add(Resource _resource, int _count)

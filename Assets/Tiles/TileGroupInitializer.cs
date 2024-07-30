@@ -15,8 +15,8 @@ public class TileGroupInitializer : MonoBehaviour
 
         for (int i = 0; i < _numTiles; i++)
         {
-            foreach (TileData _tileVariation in tileGroupsToInitialize[i].TileVariations)
-                _tileVariation.CopyTileData(tileDatas[i]);
+            foreach (TileGroup.TileDataFrequency _tileVariation in tileGroupsToInitialize[i].TileVariations)
+                _tileVariation.TileData.CopyTileData(tileDatas[i]);
         }
     }
 }

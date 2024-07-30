@@ -28,7 +28,7 @@ public class TileGrid : MonoBehaviour
             for (int y = -_gridExtent; y <= _gridExtent; y++)
             {
                 TileGroup _chosenGroup = possibleTiles[Random.Range(0, _numPossibleTiles)];
-                TileData _chosenData = _chosenGroup.TileVariations[Random.Range(0, _chosenGroup.TileVariations.Count)];
+                TileData _chosenData = _chosenGroup.GetRandomTileBasedOnFrequencies();
 
                 Tile _tile = Instantiate(tilePrefab, tileParent);
                 _tile.Initialize(_chosenData);

@@ -6,9 +6,8 @@ public class TileData : ScriptableObject
 {
     public string Name => tileName;
     public Sprite Sprite => tileSprite;
-    public bool IsBuilding => isBuilding;
-    public int MaxPersonCapacity => maxPersonCapacity;
-    public List<BuildingTile> PossibleBuildings => possibleBuildings;
+    public List<WorkBuildingTile> PossibleBuildings => possibleWorkBuildings;
+    public List<HouseTile> PossibleHouses => possibleHouses;
 
     [Header("Tile Settings")]
     [SerializeField] private string tileName;
@@ -16,51 +15,89 @@ public class TileData : ScriptableObject
     [Space(15)]
 
     [Header("Building Settings")]
-    [SerializeField] private bool isBuilding;
-    [SerializeField] [Min(0)] private int maxPersonCapacity;
-    [SerializeField] private List<BuildingTile> possibleBuildings;
+    [SerializeField] private List<WorkBuildingTile> possibleWorkBuildings;
+    [SerializeField] private List<HouseTile> possibleHouses;
 
-    private Dictionary<Building, TileData> possibleBuildingsDict = null;
+    private Dictionary<WorkBuilding, WorkBuildingTile> possibleWorkBuildingsDict = null;
+    private Dictionary<House, HouseTile> possibleHousesDict = null;
 
     public void CopyTileData(TileData _target)
     {
-        Debug.LogWarning("Copying TileData.");
-
         tileName = _target.Name;
         tileSprite = _target.Sprite;
-        possibleBuildings = _target.PossibleBuildings;
+        possibleWorkBuildings = _target.PossibleBuildings;
+        possibleHouses = _target.PossibleHouses;
     }
 
-    public bool IsBuildingPossible(Building _building)
+    public bool IsWorkBuildingPossible(WorkBuilding _building)
     {
-        if (possibleBuildingsDict == null)
-            InitDict();
+        if (possibleWorkBuildingsDict == null)
+            InitWorkDict();
 
-        return possibleBuildingsDict.ContainsKey(_building);
+        return possibleWorkBuildingsDict.ContainsKey(_building);
     }
 
-    public bool TryGetBuildingResultingTile(Building _building, out TileData _tileData)
+    public bool TryGetWorkBuildingResultingTileInfo(WorkBuilding _building, out WorkBuildingTile _tileGroup)
     {
-        if (possibleBuildingsDict == null)
-            InitDict();
+        if (possibleWorkBuildingsDict == null)
+            InitWorkDict();
 
-        if (possibleBuildingsDict.TryGetValue(_building, out _tileData))
+        if (possibleWorkBuildingsDict.TryGetValue(_building, out _tileGroup))
             return true;
 
         return false;
     }
 
-    private void InitDict()
+    public bool IsHousePossible(House _building)
     {
-        possibleBuildingsDict = new();
-        foreach (BuildingTile _buildingTile in possibleBuildings)
-            possibleBuildingsDict.Add(_buildingTile.Building, _buildingTile.ResultingTile);
+        if (possibleHousesDict == null)
+            InitHouseDict();
+
+        return possibleHousesDict.ContainsKey(_building);
+    }
+
+    public bool TryGetHouseResultingTileInfo(House _building, out HouseTile _tileGroup)
+    {
+        if (possibleHousesDict == null)
+            InitHouseDict();
+
+        if (possibleHousesDict.TryGetValue(_building, out _tileGroup))
+            return true;
+
+        return false;
+    }
+
+    private void InitWorkDict()
+    {
+        possibleWorkBuildingsDict = new();
+        foreach (WorkBuildingTile _buildingTile in possibleWorkBuildings)
+            possibleWorkBuildingsDict.Add(_buildingTile.Building, _buildingTile);
+    }
+
+    private void InitHouseDict()
+    {
+        possibleHousesDict = new();
+        foreach (HouseTile _buildingTile in possibleHouses)
+            possibleHousesDict.Add(_buildingTile.Building, _buildingTile);
     }
 
     [System.Serializable]
-    public class BuildingTile
+    public class WorkBuildingTile
     {
-        [field: SerializeField] public Building Building { get; private set; }
-        [field: SerializeField] public TileData ResultingTile { get; private set; }
+        [field: SerializeField] public bool HasVariations { get; private set; } = false;
+
+        [field: SerializeField] public WorkBuilding Building { get; private set; }
+        [field: SerializeField] public TileData ResultingTileData { get; private set; }
+        [field: SerializeField] public TileGroup ResultingVariations { get; private set; }
+    }
+
+    [System.Serializable]
+    public class HouseTile
+    {
+        [field: SerializeField] public bool HasVariations { get; private set; } = false;
+
+        [field: SerializeField] public House Building { get; private set; }
+        [field: SerializeField] public TileData ResultingTileData { get; private set; }
+        [field: SerializeField] public TileGroup ResultingVariations { get; private set; }
     }
 }

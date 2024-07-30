@@ -133,6 +133,7 @@ GameObject:
   m_Component:
   - component: {fileID: 74170576}
   - component: {fileID: 74170577}
+  - component: {fileID: 74170578}
   m_Layer: 0
   m_Name: Buildings
   m_TagString: Untagged
@@ -168,6 +169,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   workersManager: {fileID: 730501754}
+--- !u!114 &74170578
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 74170575}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1ec40252e892d7d42b9e250014c98e4a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  occupantsManager: {fileID: 730501755}
 --- !u!1 &97655820
 GameObject:
   m_ObjectHideFlags: 0
@@ -519,8 +533,9 @@ GameObject:
   m_Component:
   - component: {fileID: 730501753}
   - component: {fileID: 730501754}
+  - component: {fileID: 730501755}
   m_Layer: 0
-  m_Name: Workers
+  m_Name: People
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -554,6 +569,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerInventory: {fileID: 1910361551}
+  workBuildingsManager: {fileID: 74170577}
+  peopleResource: {fileID: 11400000, guid: f698aee977349c245bc465360ba56b28, type: 2}
+--- !u!114 &730501755
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 730501752}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 26b3d64186c800345ba0625e24fa59d0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerInventory: {fileID: 1910361551}
+  housesManager: {fileID: 74170578}
   peopleResource: {fileID: 11400000, guid: f698aee977349c245bc465360ba56b28, type: 2}
 --- !u!1 &802841726
 GameObject:
@@ -584,6 +615,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 1904097700}
   - {fileID: 1668334682}
   - {fileID: 1868860275}
   - {fileID: 97655821}
@@ -871,8 +903,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1668334682}
   - component: {fileID: 1668334683}
-  - component: {fileID: 1668334684}
   - component: {fileID: 1668334685}
+  - component: {fileID: 1668334684}
   m_Layer: 0
   m_Name: Event Handlers
   m_TagString: Untagged
@@ -909,7 +941,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tileSelectUi: {fileID: 1868860276}
   playerInventory: {fileID: 1910361551}
-  buildingsManager: {fileID: 74170577}
+  workBuildingsManager: {fileID: 74170577}
+  housesManager: {fileID: 74170578}
   turnTileUiOffOnBuild: 1
 --- !u!114 &1668334684
 MonoBehaviour:
@@ -926,6 +959,8 @@ MonoBehaviour:
   daytimeManager: {fileID: 1784281457}
   buildingsManager: {fileID: 74170577}
   playerInventory: {fileID: 1910361551}
+  housesManager: {fileID: 74170578}
+  houseOccupantsManager: {fileID: 730501755}
 --- !u!114 &1668334685
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1269,13 +1304,64 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tileSelector: {fileID: 1868860274}
-  buildingsManager: {fileID: 74170577}
+  workBuildingsManager: {fileID: 74170577}
   workersManager: {fileID: 730501754}
+  housesManager: {fileID: 74170578}
+  houseOccupantsManager: {fileID: 730501755}
   cam: {fileID: 519420031}
   camZoom: {fileID: 2126388619}
   canvas: {fileID: 1734056911}
   tileUiPrefab: {fileID: 6854914804301809082, guid: dc0556a28dad3024981f5c0b73030d1a, type: 3}
+  areHousesFirstInBuildingsList: 1
   tileUiOffset: {x: 0.1, y: 0}
+--- !u!1 &1904097699
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1904097700}
+  - component: {fileID: 1904097701}
+  m_Layer: 0
+  m_Name: Editor Utils
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1904097700
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1904097699}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 802841727}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1904097701
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1904097699}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2fc0a068e6401b4ba2b671ad97fac22, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tileGroupsToInitialize:
+  - {fileID: 11400000, guid: da77b2560a5455c41825a153e86cfbe6, type: 2}
+  tileDatas:
+  - {fileID: 11400000, guid: bb278907e2668d24aa3929a8acf1fa6e, type: 2}
 --- !u!1 &1910361550
 GameObject:
   m_ObjectHideFlags: 0

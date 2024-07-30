@@ -14,6 +14,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tileName: Plains
   tileSprite: {fileID: 21300000, guid: 00eda5d6da1fd8f46b6e9a4d1a3abb8a, type: 3}
-  possibleBuildings:
-  - <Building>k__BackingField: {fileID: 11400000, guid: fe65e0b0765f76a468ee72d613a849a8, type: 2}
-    <ResultingTile>k__BackingField: {fileID: 11400000, guid: 8763ced14d885074dabbd072c1796ade, type: 2}
+  possibleWorkBuildings:
+  - <HasVariations>k__BackingField: 0
+    <Building>k__BackingField: {fileID: 11400000, guid: fe65e0b0765f76a468ee72d613a849a8, type: 2}
+    <ResultingTileData>k__BackingField: {fileID: 11400000, guid: 8763ced14d885074dabbd072c1796ade, type: 2}
+    <ResultingVariations>k__BackingField: {fileID: 0}
+  possibleHouses:
+  - <HasVariations>k__BackingField: 1
+    <Building>k__BackingField: {fileID: 11400000, guid: 25184ef4e0346e3418b7935b09074b02, type: 2}
+    <ResultingTileData>k__BackingField: {fileID: 0}
+    <ResultingVariations>k__BackingField: {fileID: 11400000, guid: 00a47c5c014d907438d8e158d5284b45, type: 2}
